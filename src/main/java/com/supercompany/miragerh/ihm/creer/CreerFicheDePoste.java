@@ -9,8 +9,11 @@ import com.supercompany.miragerh.ihm.popup.ConfirmationPopUp;
 import com.supercompany.miragerh.ihm.popup.ErrorPopUp;
 import fr.jaschavolp.m1.jee.mirageshared.fichedeposte.CreateFichePosteVM;
 import fr.jaschavolp.m1.jee.mirageshared.presentationentreprise.PresentationEntrepriseVM;
+import fr.jaschavolp.m1.jee.mirageshared.shared.exceptions.IdentifiantInvalideException;
 import fr.jaschavolp.m1.jee.mirageshared.shared.services.ServicesRHRemote;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -41,6 +44,12 @@ public class CreerFicheDePoste extends javax.swing.JPanel {
             jRadioButtonPresentationExistante.setSelected(false);
             jRadioButtonNouvellePresentation.setSelected(true);
             jComboBox1.setEnabled(false);
+        }else{
+            jRadioButtonNouvellePresentation.setSelected(false);
+            jTextArea3.setEnabled(false);
+            jTextField2.setEnabled(false);
+            jRadioButtonPresentationExistante.setSelected(true);
+            jComboBox1.setEnabled(true);
         }
     }
 
@@ -147,8 +156,8 @@ public class CreerFicheDePoste extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jRadioButtonPresentationExistante)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(129, Short.MAX_VALUE))
         );
 
         jRadioButtonNouvellePresentation.setText("Nouvelle présentation");
@@ -182,10 +191,10 @@ public class CreerFicheDePoste extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jRadioButtonNouvellePresentation)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addGap(7, 7, 7)
                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane3)
                 .addContainerGap())
         );
 
@@ -235,7 +244,7 @@ public class CreerFicheDePoste extends javax.swing.JPanel {
                         .addComponent(jLabelDateFinRecrutement, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextField1)
-                        .addGap(320, 320, 320))
+                        .addGap(10, 10, 10))
                     .addComponent(jPanelIdentifiant1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanelIdentifiant2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -252,7 +261,7 @@ public class CreerFicheDePoste extends javax.swing.JPanel {
                     .addComponent(jLabelDateFinRecrutement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jPanelIdentifiant1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelIdentifiant1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanelIdentifiant2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -273,6 +282,7 @@ public class CreerFicheDePoste extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValiderActionPerformed
+        
         CreateFichePosteVM vm = null;
         if(jTextField1.getText().trim().length()==0 || jTextField1.getText().trim().length() ==0){
             ErrorPopUp popUp = new ErrorPopUp("Veuillez entrer un nom de fiche et une description du poste");
@@ -289,13 +299,19 @@ public class CreerFicheDePoste extends javax.swing.JPanel {
         }else{
             return;
         }
-        service.creerUneFicheDePoste(vm);
-        ConfirmationPopUp confPopUp = new ConfirmationPopUp("La fiche de poste a bien été envoyée");
+        try {
+            service.creerUneFicheDePoste(vm);
+            ConfirmationPopUp confPopUp = new ConfirmationPopUp("La fiche de poste a bien été envoyée");
+        } catch (IdentifiantInvalideException ex) {
+            Logger.getLogger(CreerFicheDePoste.class.getName()).log(Level.SEVERE, null, ex);
+            ErrorPopUp popUp = new ErrorPopUp("Erreur : la fiche n'a pas été créé " + ex.getMessage());
+        }
     }//GEN-LAST:event_jButtonValiderActionPerformed
 
     private void jRadioButtonPresentationExistanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPresentationExistanteActionPerformed
         jRadioButtonNouvellePresentation.setSelected(false);
         jTextArea3.setEnabled(false);
+        jTextField2.setEnabled(false);
         jRadioButtonPresentationExistante.setSelected(true);
         jComboBox1.setEnabled(true);
     }//GEN-LAST:event_jRadioButtonPresentationExistanteActionPerformed
@@ -303,6 +319,7 @@ public class CreerFicheDePoste extends javax.swing.JPanel {
     private void jRadioButtonNouvellePresentationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonNouvellePresentationActionPerformed
         jRadioButtonNouvellePresentation.setSelected(true);
         jTextArea3.setEnabled(true);
+        jTextField2.setEnabled(true);
         jRadioButtonPresentationExistante.setSelected(false);
         jComboBox1.setEnabled(false);
     }//GEN-LAST:event_jRadioButtonNouvellePresentationActionPerformed

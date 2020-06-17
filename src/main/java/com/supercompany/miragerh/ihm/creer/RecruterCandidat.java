@@ -7,8 +7,11 @@ package com.supercompany.miragerh.ihm.creer;
 
 import com.supercompany.miragerh.ihm.popup.ConfirmationPopUp;
 import com.supercompany.miragerh.ihm.popup.ErrorPopUp;
+import fr.jaschavolp.m1.jee.mirageshared.shared.exceptions.IdentifiantInvalideException;
 import fr.jaschavolp.m1.jee.mirageshared.shared.services.ServicesRHRemote;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -104,8 +107,13 @@ public class RecruterCandidat extends javax.swing.JPanel {
     private void jButtonValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValiderActionPerformed
         // TODO add your handling code here:
         if(jFormattedTextFieldDateRecrutement.getValue()!=null){
-            service.recruterUnCandidat(identifiantCandidat, (Date)jFormattedTextFieldDateRecrutement.getValue());
-            ConfirmationPopUp popup = new ConfirmationPopUp("Le candidat à bien été recruté");
+            try {
+                service.recruterUnCandidat(identifiantCandidat, (Date)jFormattedTextFieldDateRecrutement.getValue());
+                ConfirmationPopUp popup = new ConfirmationPopUp("Le candidat à bien été recruté");
+            } catch (IdentifiantInvalideException ex) {
+                Logger.getLogger(RecruterCandidat.class.getName()).log(Level.SEVERE, null, ex);
+                ErrorPopUp popUp = new ErrorPopUp("Erreur : Le candidat n'a pas été recruté " + ex.getMessage());
+            }
         }else{
             ErrorPopUp popup = new ErrorPopUp("Le champs est vide");
         }

@@ -27,6 +27,7 @@ import fr.jaschavolp.m1.jee.mirageshared.fichedeposte.DetailsFichePosteVM;
 import fr.jaschavolp.m1.jee.mirageshared.fichedeposte.FichePosteVM;
 import fr.jaschavolp.m1.jee.mirageshared.personne.collaborateur.CollaborateurVM;
 import fr.jaschavolp.m1.jee.mirageshared.presentationentreprise.PresentationEntrepriseVM;
+import fr.jaschavolp.m1.jee.mirageshared.shared.exceptions.IdentifiantInvalideException;
 import fr.jaschavolp.m1.jee.mirageshared.shared.services.ServicesRHRemote;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -310,8 +311,13 @@ public class Canvas extends javax.swing.JFrame {
         contenu.setPanelIndex(panelListe);
         tableauFdP.setDefaultRenderer(Object.class, new BlueTableColoredCellRenderer());
         tableauFdP.getSelectionModel().addListSelectionListener((ListSelectionEvent e) ->{
-            DetailsFichePosteVM detailVM = service.consulterLeDetailFicheDePoste(Integer.parseInt(tableauFdP.getValueAt(tableauFdP.getSelectedRow(), 0).toString()));
-            contenu.setPanelDetail(new DetailsFicheDePoste(detailVM));
+            try {
+                DetailsFichePosteVM detailVM = service.consulterLeDetailFicheDePoste(Integer.parseInt(tableauFdP.getValueAt(tableauFdP.getSelectedRow(), 0).toString()));
+                contenu.setPanelDetail(new DetailsFicheDePoste(detailVM));
+            } catch (IdentifiantInvalideException ex) {
+                Logger.getLogger(Canvas.class.getName()).log(Level.SEVERE, null, ex);
+                ErrorPopUp popUp = new ErrorPopUp("Impossible de charger le détails");
+            }
         });
         jLabelTitle.setText("Liste des fiches de poste");
         changerPanel(contenu);
@@ -326,19 +332,30 @@ public class Canvas extends javax.swing.JFrame {
     
     
     public void goToListeCandidaturesDUneFiche(int identifiantFdP){
-        List<CandidatureVM> viewModel = service.consulterLesCandidaturesPourUneFicheDePoste(identifiantFdP);
-        Contenu contenu = new Contenu();
-        JPanel panelListe = new JPanel(new GridLayout());
-        JTable tableauCandidatures = new JTable(new CandidatureTableModel(viewModel));
-        panelListe.add(new JScrollPane(tableauCandidatures), new GridLayout());
-        contenu.setPanelIndex(panelListe);
-        tableauCandidatures.setDefaultRenderer(Object.class, new BlueTableColoredCellRenderer());
-        tableauCandidatures.getSelectionModel().addListSelectionListener((ListSelectionEvent e) ->{
-            DetailsCandidatureVM detailVM = service.consulterLeDetailCandidature(Integer.parseInt(tableauCandidatures.getValueAt(tableauCandidatures.getSelectedRow(), 0).toString()));
-            contenu.setPanelDetail(new DetailsCandidature(detailVM, service));
-        });
-        jLabelTitle.setText("Liste des candidatures de la fiche : " +identifiantFdP);
-        changerPanel(contenu);
+        List<CandidatureVM> viewModel;
+        try {
+            viewModel = service.consulterLesCandidaturesPourUneFicheDePoste(identifiantFdP);        
+            Contenu contenu = new Contenu();
+            JPanel panelListe = new JPanel(new GridLayout());
+            JTable tableauCandidatures = new JTable(new CandidatureTableModel(viewModel));
+            panelListe.add(new JScrollPane(tableauCandidatures), new GridLayout());
+            contenu.setPanelIndex(panelListe);
+            tableauCandidatures.setDefaultRenderer(Object.class, new BlueTableColoredCellRenderer());
+            tableauCandidatures.getSelectionModel().addListSelectionListener((ListSelectionEvent e) ->{
+                try {
+                    DetailsCandidatureVM detailVM = service.consulterLeDetailCandidature(Integer.parseInt(tableauCandidatures.getValueAt(tableauCandidatures.getSelectedRow(), 0).toString()));
+                    contenu.setPanelDetail(new DetailsCandidature(detailVM, service));
+                } catch (IdentifiantInvalideException ex) {
+                    Logger.getLogger(Canvas.class.getName()).log(Level.SEVERE, null, ex);
+                    ErrorPopUp popUp = new ErrorPopUp("Impossible de charger le détails");
+                }
+            });
+            jLabelTitle.setText("Liste des candidatures de la fiche : " +identifiantFdP);
+            changerPanel(contenu);
+        } catch (IdentifiantInvalideException ex) {
+            Logger.getLogger(Canvas.class.getName()).log(Level.SEVERE, null, ex);
+            ErrorPopUp popUp = new ErrorPopUp("Impossible de charger le détails");
+        }
     }
     
     public void goToRecruterCandidat(int identifiantCandidature){

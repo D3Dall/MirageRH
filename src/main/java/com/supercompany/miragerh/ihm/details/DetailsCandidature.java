@@ -7,8 +7,12 @@ package com.supercompany.miragerh.ihm.details;
 
 import com.supercompany.miragerh.ihm.Canvas;
 import com.supercompany.miragerh.ihm.popup.ConfirmationPopUp;
+import com.supercompany.miragerh.ihm.popup.ErrorPopUp;
 import fr.jaschavolp.m1.jee.mirageshared.candidature.DetailsCandidatureVM;
+import fr.jaschavolp.m1.jee.mirageshared.shared.exceptions.IdentifiantInvalideException;
 import fr.jaschavolp.m1.jee.mirageshared.shared.services.ServicesRHRemote;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Défini une JPanel personnalisé visualisant l'ensemble des informations d'une candidature
@@ -28,12 +32,13 @@ public class DetailsCandidature extends javax.swing.JPanel {
     public DetailsCandidature(DetailsCandidatureVM data, ServicesRHRemote service) {
         initComponents();
         this.data = data;
+        this.service = service;
         this.actualize();
     }
     
     private void actualize(){
         if(data != null){
-            jLabelCandIdentifiantData.setText(data.getIdentifiant().toString());
+            jLabelIdentifiantData.setText(data.getIdentifiant().toString());
             jLabelLettreDeMotivationData.setText(data.getLettreMotivation());
             jLabelCandIdentifiantData.setText(data.getDetailsCandidat().getIdentifiant().toString());
             jLabelCandIdentiteeData.setText(data.getDetailsCandidat().getPrenom() + data.getDetailsCandidat().getNom().toUpperCase() );
@@ -45,7 +50,7 @@ public class DetailsCandidature extends javax.swing.JPanel {
             jLabelFdPPresentationEntrepriseData.setText(data.getDetailsFichePoste().getPresentationEntreprise());
             
             jButtonFeuVertRH.setEnabled(data.getChoixRH() == null);
-            jButtonRecruter.setEnabled(data.getChoixCODIR() != null && data.getChoixCODIR() && data.getChoixRH() != null && data.getChoixRH() && data.getChoixCandidat() != null && data.getChoixCandidat());
+            jButtonRecruter.setEnabled(data.getChoixCODIR() != null && data.getChoixCODIR() && data.getChoixRH() != null && data.getChoixRH() && data.getChoixCandidat() != null && data.getChoixCandidat() && data.isRecrute());
         }
     }
 
@@ -583,8 +588,13 @@ public class DetailsCandidature extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonFeuVertRHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeuVertRHActionPerformed
-        service.donnerLeFeuxVertRH(data.getIdentifiant());
-        ConfirmationPopUp popup = new ConfirmationPopUp("Le feu vert RH à bien été pris en compte ! merci");
+        try {
+            service.donnerLeFeuxVertRH(data.getIdentifiant());
+            ConfirmationPopUp popup = new ConfirmationPopUp("Le feu vert RH à bien été pris en compte ! merci");
+        } catch (IdentifiantInvalideException ex) {
+            Logger.getLogger(DetailsCandidature.class.getName()).log(Level.SEVERE, null, ex);
+            ErrorPopUp popUp = new ErrorPopUp("Erreur : le feu vert n'a pas été donné " + ex.getMessage());
+        }
     }//GEN-LAST:event_jButtonFeuVertRHActionPerformed
 
     private void jButtonRecruterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRecruterActionPerformed
