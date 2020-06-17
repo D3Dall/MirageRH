@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.supercompany.miragerh.ihm.creer;
 
 import com.supercompany.miragerh.ihm.popup.ConfirmationPopUp;
@@ -14,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Défini une JPanel personnalisé pour rentrer une date de fin de contrat
  * @author FlorianDELSOL
  */
 public class FinContrat extends javax.swing.JPanel {
@@ -24,7 +19,9 @@ public class FinContrat extends javax.swing.JPanel {
     private ServicesRHRemote service;
 
     /**
-     * Creates new form RecruterCandidat
+     * Créer une nouvelle instance
+     * @param identifiantCollaborateur L'identifiant du collaborateur
+     * @param service Le service permettant de communiquer avec le serveur
      */
     public FinContrat(int identifiantCollaborateur, ServicesRHRemote service) {
         initComponents();

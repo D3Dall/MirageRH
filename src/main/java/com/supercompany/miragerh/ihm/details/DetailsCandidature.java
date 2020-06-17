@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.supercompany.miragerh.ihm.details;
 
 import com.supercompany.miragerh.ihm.Canvas;
@@ -50,7 +45,7 @@ public class DetailsCandidature extends javax.swing.JPanel {
             jLabelFdPPresentationEntrepriseData.setText(data.getDetailsFichePoste().getPresentationEntreprise());
             
             jButtonFeuVertRH.setEnabled(data.getChoixRH() == null);
-            jButtonRecruter.setEnabled(data.getChoixCODIR() != null && data.getChoixCODIR() && data.getChoixRH() != null && data.getChoixRH() && data.getChoixCandidat() != null && data.getChoixCandidat() && data.isRecrute());
+            jButtonRecruter.setEnabled(data.getChoixCODIR() != null && data.getChoixCODIR() && data.getChoixRH() != null && data.getChoixRH() && data.getChoixCandidat() != null && data.getChoixCandidat() && !data.isRecrute());
         }
     }
 

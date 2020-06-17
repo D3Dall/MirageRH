@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.supercompany.miragerh.ihm.details;
 
 import com.supercompany.miragerh.ihm.Canvas;
 import fr.jaschavolp.m1.jee.mirageshared.personne.collaborateur.CollaborateurVM;
 
 /**
- *
+ * Défini une JPanel personnalisé pour montrer les données d'un collaborateur
  * @author FlorianDELSOL
  */
 public class DetailsCollaborateur extends javax.swing.JPanel {
@@ -17,15 +12,11 @@ public class DetailsCollaborateur extends javax.swing.JPanel {
     private CollaborateurVM data;
 
     /**
-     * Creates new form DetailFicheDePoste
+     * Creates une nouvelle instance
+     * @param data Les données concernant le collaborateur
      */
     public DetailsCollaborateur(CollaborateurVM data) {
         initComponents();
-        this.data = data;
-        actualize();
-    }
-    
-    public void setNewData(CollaborateurVM data){
         this.data = data;
         actualize();
     }

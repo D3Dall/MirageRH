@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.supercompany.miragerh.ihm.creer;
 
 import com.supercompany.miragerh.ihm.popup.ConfirmationPopUp;
@@ -16,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Définit une JPanel personnalisé pour la création d'une nouvelle fiche de poste
  * @author FlorianDELSOL
  */
 public class CreerFicheDePoste extends javax.swing.JPanel {
@@ -28,7 +23,10 @@ public class CreerFicheDePoste extends javax.swing.JPanel {
     private List<PresentationEntrepriseVM> presentation;
 
     /**
-     * Creates new form RecruterCandidat
+     * Créer une nouvelle isntance
+     * @param identifiantDemandeDeCompetence L'identifiant de la demande de compétence
+     * @param service Le service permettant de communiquer avec le serveur
+     * @param presentation La liste des présentationd d'entreprise existante
      */
     public CreerFicheDePoste(int identifiantDemandeDeCompetence, ServicesRHRemote service, List<PresentationEntrepriseVM> presentation) {
         initComponents();
@@ -36,20 +34,20 @@ public class CreerFicheDePoste extends javax.swing.JPanel {
         this.service = service;
         
         presentation.forEach((vm) -> {
-            jComboBox1.addItem(vm.getIdentifiant() + "- " + vm.getNom());
+            jComboBoxPresentationExistante.addItem(vm.getIdentifiant() + "- " + vm.getNom());
         });
         
         if(presentation.isEmpty()){
-            jRadioButtonPresentationExistante.setEnabled(false);
-            jRadioButtonPresentationExistante.setSelected(false);
+            jRadioButtonPresentationEntrepriseExistante.setEnabled(false);
+            jRadioButtonPresentationEntrepriseExistante.setSelected(false);
             jRadioButtonNouvellePresentation.setSelected(true);
-            jComboBox1.setEnabled(false);
+            jComboBoxPresentationExistante.setEnabled(false);
         }else{
             jRadioButtonNouvellePresentation.setSelected(false);
-            jTextArea3.setEnabled(false);
-            jTextField2.setEnabled(false);
-            jRadioButtonPresentationExistante.setSelected(true);
-            jComboBox1.setEnabled(true);
+            jTextAreaNouvellePresentationEntreprise.setEnabled(false);
+            jTextFieldNomNouvellePresentationEntreprise.setEnabled(false);
+            jRadioButtonPresentationEntrepriseExistante.setSelected(true);
+            jComboBoxPresentationExistante.setEnabled(true);
         }
     }
 
@@ -62,101 +60,101 @@ public class CreerFicheDePoste extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanelIdentifiant = new javax.swing.JPanel();
-        jLabelDateFinRecrutement = new javax.swing.JLabel();
-        jPanelIdentifiant1 = new javax.swing.JPanel();
-        jLabelDateFinRecrutement1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jPanelIdentifiant2 = new javax.swing.JPanel();
-        jLabelDateFinRecrutement2 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jRadioButtonPresentationExistante = new javax.swing.JRadioButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jPanel2 = new javax.swing.JPanel();
+        jPanelContainer = new javax.swing.JPanel();
+        jLabelNomFicheTitle = new javax.swing.JLabel();
+        jPanelPresentationPoste = new javax.swing.JPanel();
+        jLabelPresentationPosteTitre = new javax.swing.JLabel();
+        jScrollPanePresentationPoste = new javax.swing.JScrollPane();
+        jTextAreaPresentationPoste = new javax.swing.JTextArea();
+        jPanelPresentationEntreprise = new javax.swing.JPanel();
+        jLabelPresentationEntrepriseTitre = new javax.swing.JLabel();
+        jPanelPresentationEntrepriseExistante = new javax.swing.JPanel();
+        jRadioButtonPresentationEntrepriseExistante = new javax.swing.JRadioButton();
+        jComboBoxPresentationExistante = new javax.swing.JComboBox<>();
+        jPanelNouvellePresentationEntreprise = new javax.swing.JPanel();
         jRadioButtonNouvellePresentation = new javax.swing.JRadioButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea3 = new javax.swing.JTextArea();
-        jTextField2 = new javax.swing.JTextField();
+        jScrollPaneNouvellePresentationEntreprise = new javax.swing.JScrollPane();
+        jTextAreaNouvellePresentationEntreprise = new javax.swing.JTextArea();
+        jTextFieldNomNouvellePresentationEntreprise = new javax.swing.JTextField();
         jButtonValider = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        jTextFieldNomFicheData = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanelIdentifiant.setBackground(new java.awt.Color(250, 250, 255));
+        jPanelContainer.setBackground(new java.awt.Color(250, 250, 255));
 
-        jLabelDateFinRecrutement.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabelDateFinRecrutement.setText("Nom de la fiche : ");
+        jLabelNomFicheTitle.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabelNomFicheTitle.setText("Nom de la fiche : ");
 
-        jPanelIdentifiant1.setBackground(new java.awt.Color(250, 250, 255));
+        jPanelPresentationPoste.setBackground(new java.awt.Color(250, 250, 255));
 
-        jLabelDateFinRecrutement1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabelDateFinRecrutement1.setText("Présentation du poste :");
+        jLabelPresentationPosteTitre.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabelPresentationPosteTitre.setText("Présentation du poste :");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jTextAreaPresentationPoste.setColumns(20);
+        jTextAreaPresentationPoste.setRows(5);
+        jScrollPanePresentationPoste.setViewportView(jTextAreaPresentationPoste);
 
-        javax.swing.GroupLayout jPanelIdentifiant1Layout = new javax.swing.GroupLayout(jPanelIdentifiant1);
-        jPanelIdentifiant1.setLayout(jPanelIdentifiant1Layout);
-        jPanelIdentifiant1Layout.setHorizontalGroup(
-            jPanelIdentifiant1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelIdentifiant1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelPresentationPosteLayout = new javax.swing.GroupLayout(jPanelPresentationPoste);
+        jPanelPresentationPoste.setLayout(jPanelPresentationPosteLayout);
+        jPanelPresentationPosteLayout.setHorizontalGroup(
+            jPanelPresentationPosteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelPresentationPosteLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelIdentifiant1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelIdentifiant1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
+                .addGroup(jPanelPresentationPosteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelPresentationPosteLayout.createSequentialGroup()
+                        .addComponent(jScrollPanePresentationPoste)
                         .addContainerGap())
-                    .addGroup(jPanelIdentifiant1Layout.createSequentialGroup()
-                        .addComponent(jLabelDateFinRecrutement1, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+                    .addGroup(jPanelPresentationPosteLayout.createSequentialGroup()
+                        .addComponent(jLabelPresentationPosteTitre, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
                         .addGap(294, 294, 294))))
         );
-        jPanelIdentifiant1Layout.setVerticalGroup(
-            jPanelIdentifiant1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelIdentifiant1Layout.createSequentialGroup()
+        jPanelPresentationPosteLayout.setVerticalGroup(
+            jPanelPresentationPosteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelPresentationPosteLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelDateFinRecrutement1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelPresentationPosteTitre, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                .addComponent(jScrollPanePresentationPoste, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jPanelIdentifiant2.setBackground(new java.awt.Color(250, 250, 255));
+        jPanelPresentationEntreprise.setBackground(new java.awt.Color(250, 250, 255));
 
-        jLabelDateFinRecrutement2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabelDateFinRecrutement2.setText("Présentation de l'entreprise :");
+        jLabelPresentationEntrepriseTitre.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabelPresentationEntrepriseTitre.setText("Présentation de l'entreprise :");
 
-        jRadioButtonPresentationExistante.setSelected(true);
-        jRadioButtonPresentationExistante.setText("Présentation existante");
-        jRadioButtonPresentationExistante.setToolTipText("");
-        jRadioButtonPresentationExistante.addActionListener(new java.awt.event.ActionListener() {
+        jRadioButtonPresentationEntrepriseExistante.setSelected(true);
+        jRadioButtonPresentationEntrepriseExistante.setText("Présentation existante");
+        jRadioButtonPresentationEntrepriseExistante.setToolTipText("");
+        jRadioButtonPresentationEntrepriseExistante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonPresentationExistanteActionPerformed(evt);
+                jRadioButtonPresentationEntrepriseExistanteActionPerformed(evt);
             }
         });
 
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        jComboBoxPresentationExistante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                jComboBoxPresentationExistanteActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jRadioButtonPresentationExistante, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelPresentationEntrepriseExistanteLayout = new javax.swing.GroupLayout(jPanelPresentationEntrepriseExistante);
+        jPanelPresentationEntrepriseExistante.setLayout(jPanelPresentationEntrepriseExistanteLayout);
+        jPanelPresentationEntrepriseExistanteLayout.setHorizontalGroup(
+            jPanelPresentationEntrepriseExistanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jRadioButtonPresentationEntrepriseExistante, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+            .addGroup(jPanelPresentationEntrepriseExistanteLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jComboBoxPresentationExistante, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jRadioButtonPresentationExistante)
+        jPanelPresentationEntrepriseExistanteLayout.setVerticalGroup(
+            jPanelPresentationEntrepriseExistanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelPresentationEntrepriseExistanteLayout.createSequentialGroup()
+                .addComponent(jRadioButtonPresentationEntrepriseExistante)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBoxPresentationExistante, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(129, Short.MAX_VALUE))
         );
 
@@ -168,61 +166,61 @@ public class CreerFicheDePoste extends javax.swing.JPanel {
             }
         });
 
-        jTextArea3.setColumns(20);
-        jTextArea3.setRows(5);
-        jTextArea3.setText("Présentation");
-        jScrollPane3.setViewportView(jTextArea3);
+        jTextAreaNouvellePresentationEntreprise.setColumns(20);
+        jTextAreaNouvellePresentationEntreprise.setRows(5);
+        jTextAreaNouvellePresentationEntreprise.setText("Présentation");
+        jScrollPaneNouvellePresentationEntreprise.setViewportView(jTextAreaNouvellePresentationEntreprise);
 
-        jTextField2.setText("Nom de la nouvelle présentation");
+        jTextFieldNomNouvellePresentationEntreprise.setText("Nom de la nouvelle présentation");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanelNouvellePresentationEntrepriseLayout = new javax.swing.GroupLayout(jPanelNouvellePresentationEntreprise);
+        jPanelNouvellePresentationEntreprise.setLayout(jPanelNouvellePresentationEntrepriseLayout);
+        jPanelNouvellePresentationEntrepriseLayout.setHorizontalGroup(
+            jPanelNouvellePresentationEntrepriseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jRadioButtonNouvellePresentation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanelNouvellePresentationEntrepriseLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3)
-                    .addComponent(jTextField2))
+                .addGroup(jPanelNouvellePresentationEntrepriseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPaneNouvellePresentationEntreprise)
+                    .addComponent(jTextFieldNomNouvellePresentationEntreprise))
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        jPanelNouvellePresentationEntrepriseLayout.setVerticalGroup(
+            jPanelNouvellePresentationEntrepriseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelNouvellePresentationEntrepriseLayout.createSequentialGroup()
                 .addComponent(jRadioButtonNouvellePresentation)
                 .addGap(7, 7, 7)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldNomNouvellePresentationEntreprise, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3)
+                .addComponent(jScrollPaneNouvellePresentationEntreprise)
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout jPanelIdentifiant2Layout = new javax.swing.GroupLayout(jPanelIdentifiant2);
-        jPanelIdentifiant2.setLayout(jPanelIdentifiant2Layout);
-        jPanelIdentifiant2Layout.setHorizontalGroup(
-            jPanelIdentifiant2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelIdentifiant2Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelPresentationEntrepriseLayout = new javax.swing.GroupLayout(jPanelPresentationEntreprise);
+        jPanelPresentationEntreprise.setLayout(jPanelPresentationEntrepriseLayout);
+        jPanelPresentationEntrepriseLayout.setHorizontalGroup(
+            jPanelPresentationEntrepriseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelPresentationEntrepriseLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelIdentifiant2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelIdentifiant2Layout.createSequentialGroup()
-                        .addComponent(jLabelDateFinRecrutement2, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+                .addGroup(jPanelPresentationEntrepriseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelPresentationEntrepriseLayout.createSequentialGroup()
+                        .addComponent(jLabelPresentationEntrepriseTitre, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
                         .addGap(294, 294, 294))
-                    .addGroup(jPanelIdentifiant2Layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelPresentationEntrepriseLayout.createSequentialGroup()
+                        .addComponent(jPanelPresentationEntrepriseExistante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanelNouvellePresentationEntreprise, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
         );
-        jPanelIdentifiant2Layout.setVerticalGroup(
-            jPanelIdentifiant2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelIdentifiant2Layout.createSequentialGroup()
+        jPanelPresentationEntrepriseLayout.setVerticalGroup(
+            jPanelPresentationEntrepriseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelPresentationEntrepriseLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelDateFinRecrutement2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelPresentationEntrepriseTitre, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelIdentifiant2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanelPresentationEntrepriseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanelPresentationEntrepriseExistante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelNouvellePresentationEntreprise, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -233,37 +231,37 @@ public class CreerFicheDePoste extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout jPanelIdentifiantLayout = new javax.swing.GroupLayout(jPanelIdentifiant);
-        jPanelIdentifiant.setLayout(jPanelIdentifiantLayout);
-        jPanelIdentifiantLayout.setHorizontalGroup(
-            jPanelIdentifiantLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelIdentifiantLayout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelContainerLayout = new javax.swing.GroupLayout(jPanelContainer);
+        jPanelContainer.setLayout(jPanelContainerLayout);
+        jPanelContainerLayout.setHorizontalGroup(
+            jPanelContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelContainerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelIdentifiantLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelIdentifiantLayout.createSequentialGroup()
-                        .addComponent(jLabelDateFinRecrutement, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelContainerLayout.createSequentialGroup()
+                        .addComponent(jLabelNomFicheTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1)
+                        .addComponent(jTextFieldNomFicheData)
                         .addGap(10, 10, 10))
-                    .addComponent(jPanelIdentifiant1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelIdentifiant2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanelPresentationPoste, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelPresentationEntreprise, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(jPanelIdentifiantLayout.createSequentialGroup()
+            .addGroup(jPanelContainerLayout.createSequentialGroup()
                 .addGap(260, 260, 260)
                 .addComponent(jButtonValider, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addGap(297, 297, 297))
         );
-        jPanelIdentifiantLayout.setVerticalGroup(
-            jPanelIdentifiantLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelIdentifiantLayout.createSequentialGroup()
+        jPanelContainerLayout.setVerticalGroup(
+            jPanelContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelContainerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelIdentifiantLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelDateFinRecrutement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanelContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelNomFicheTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextFieldNomFicheData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jPanelIdentifiant1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanelPresentationPoste, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanelIdentifiant2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanelPresentationEntreprise, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonValider)
                 .addGap(26, 26, 26))
@@ -273,29 +271,29 @@ public class CreerFicheDePoste extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelIdentifiant, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelContainer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelIdentifiant, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelContainer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValiderActionPerformed
         
         CreateFichePosteVM vm = null;
-        if(jTextField1.getText().trim().length()==0 || jTextField1.getText().trim().length() ==0){
+        if(jTextFieldNomFicheData.getText().trim().length()==0 || jTextFieldNomFicheData.getText().trim().length() ==0){
             ErrorPopUp popUp = new ErrorPopUp("Veuillez entrer un nom de fiche et une description du poste");
             return;
         }
-        if(jRadioButtonPresentationExistante.isSelected()){
-            vm = new CreateFichePosteVM(identifiantDemandeDeCompetence, jTextField1.getText(), jTextArea1.getText(), false, Integer.parseInt(((String)jComboBox1.getSelectedItem()).split("-")[0]) , null, null);
+        if(jRadioButtonPresentationEntrepriseExistante.isSelected()){
+            vm = new CreateFichePosteVM(identifiantDemandeDeCompetence, jTextFieldNomFicheData.getText(), jTextAreaPresentationPoste.getText(), false, Integer.parseInt(((String)jComboBoxPresentationExistante.getSelectedItem()).split("-")[0]) , null, null);
         }else if(jRadioButtonNouvellePresentation.isSelected()){
-            if(jTextArea3.getText().trim().length()==0 || jTextField2.getText().trim().length()==0){
+            if(jTextAreaNouvellePresentationEntreprise.getText().trim().length()==0 || jTextFieldNomNouvellePresentationEntreprise.getText().trim().length()==0){
                 ErrorPopUp popUp = new ErrorPopUp("Veuillez entrer un nouveau nom et une nouvelle présentation d'entreprise");
                 return;
             }
-            vm = new CreateFichePosteVM(identifiantDemandeDeCompetence, jTextField1.getText(), jTextArea1.getText(), true, -1, jTextField2.getText(), jTextArea3.getText());
+            vm = new CreateFichePosteVM(identifiantDemandeDeCompetence, jTextFieldNomFicheData.getText(), jTextAreaPresentationPoste.getText(), true, -1, jTextFieldNomNouvellePresentationEntreprise.getText(), jTextAreaNouvellePresentationEntreprise.getText());
         }else{
             return;
         }
@@ -308,45 +306,45 @@ public class CreerFicheDePoste extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButtonValiderActionPerformed
 
-    private void jRadioButtonPresentationExistanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPresentationExistanteActionPerformed
+    private void jRadioButtonPresentationEntrepriseExistanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPresentationEntrepriseExistanteActionPerformed
         jRadioButtonNouvellePresentation.setSelected(false);
-        jTextArea3.setEnabled(false);
-        jTextField2.setEnabled(false);
-        jRadioButtonPresentationExistante.setSelected(true);
-        jComboBox1.setEnabled(true);
-    }//GEN-LAST:event_jRadioButtonPresentationExistanteActionPerformed
+        jTextAreaNouvellePresentationEntreprise.setEnabled(false);
+        jTextFieldNomNouvellePresentationEntreprise.setEnabled(false);
+        jRadioButtonPresentationEntrepriseExistante.setSelected(true);
+        jComboBoxPresentationExistante.setEnabled(true);
+    }//GEN-LAST:event_jRadioButtonPresentationEntrepriseExistanteActionPerformed
 
     private void jRadioButtonNouvellePresentationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonNouvellePresentationActionPerformed
         jRadioButtonNouvellePresentation.setSelected(true);
-        jTextArea3.setEnabled(true);
-        jTextField2.setEnabled(true);
-        jRadioButtonPresentationExistante.setSelected(false);
-        jComboBox1.setEnabled(false);
+        jTextAreaNouvellePresentationEntreprise.setEnabled(true);
+        jTextFieldNomNouvellePresentationEntreprise.setEnabled(true);
+        jRadioButtonPresentationEntrepriseExistante.setSelected(false);
+        jComboBoxPresentationExistante.setEnabled(false);
     }//GEN-LAST:event_jRadioButtonNouvellePresentationActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void jComboBoxPresentationExistanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPresentationExistanteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_jComboBoxPresentationExistanteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonValider;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabelDateFinRecrutement;
-    private javax.swing.JLabel jLabelDateFinRecrutement1;
-    private javax.swing.JLabel jLabelDateFinRecrutement2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanelIdentifiant;
-    private javax.swing.JPanel jPanelIdentifiant1;
-    private javax.swing.JPanel jPanelIdentifiant2;
+    private javax.swing.JComboBox<String> jComboBoxPresentationExistante;
+    private javax.swing.JLabel jLabelNomFicheTitle;
+    private javax.swing.JLabel jLabelPresentationEntrepriseTitre;
+    private javax.swing.JLabel jLabelPresentationPosteTitre;
+    private javax.swing.JPanel jPanelContainer;
+    private javax.swing.JPanel jPanelNouvellePresentationEntreprise;
+    private javax.swing.JPanel jPanelPresentationEntreprise;
+    private javax.swing.JPanel jPanelPresentationEntrepriseExistante;
+    private javax.swing.JPanel jPanelPresentationPoste;
     private javax.swing.JRadioButton jRadioButtonNouvellePresentation;
-    private javax.swing.JRadioButton jRadioButtonPresentationExistante;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JRadioButton jRadioButtonPresentationEntrepriseExistante;
+    private javax.swing.JScrollPane jScrollPaneNouvellePresentationEntreprise;
+    private javax.swing.JScrollPane jScrollPanePresentationPoste;
+    private javax.swing.JTextArea jTextAreaNouvellePresentationEntreprise;
+    private javax.swing.JTextArea jTextAreaPresentationPoste;
+    private javax.swing.JTextField jTextFieldNomFicheData;
+    private javax.swing.JTextField jTextFieldNomNouvellePresentationEntreprise;
     // End of variables declaration//GEN-END:variables
 }
